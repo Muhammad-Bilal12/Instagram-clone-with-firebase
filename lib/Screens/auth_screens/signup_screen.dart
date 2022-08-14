@@ -3,11 +3,15 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram/resources/auth_methods.dart';
 import 'package:flutter_instagram/utils/constants/colors.dart';
+import 'package:flutter_instagram/utils/responsiveLayout/responsive_layout_screen.dart';
 import 'package:flutter_instagram/utils/utils.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../Widgets/text_input_feild.dart';
+import '../../utils/responsiveLayout/mobile_screen.dart';
+import '../../utils/responsiveLayout/web_screen.dart';
+import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -57,17 +61,25 @@ class _SignupScreenState extends State<SignupScreen> {
       setState(() {
         isLoading = false;
       });
-      showSnackBar(context, "Your data is Register successfully!");
-      return null;
+
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+                mobileScreen: MobileScreen(),
+                webScreen: WebScreen(),
+              )));
     } else {
       setState(() {
         isLoading = false;
-        return null;
       });
       showSnackBar(context, "Invalid Email");
     }
 
     print(signup);
+  }
+
+  navigatetoscreen() {
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
   @override
@@ -181,7 +193,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 children: [
                   const Text("Already have an Account?"),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: navigatetoscreen,
                     child: const Text(
                       "Login",
                       style: TextStyle(fontWeight: FontWeight.bold),
