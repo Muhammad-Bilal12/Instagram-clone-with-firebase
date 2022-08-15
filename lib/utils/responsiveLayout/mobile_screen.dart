@@ -1,6 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_instagram/provider/user_provider.dart';
+import 'package:provider/provider.dart';
+
+import 'package:flutter_instagram/models/user_model.dart' as model;
 
 class MobileScreen extends StatefulWidget {
   const MobileScreen({Key? key}) : super(key: key);
@@ -10,32 +13,18 @@ class MobileScreen extends StatefulWidget {
 }
 
 class _MobileScreenState extends State<MobileScreen> {
-  String username = "";
-
   @override
   void initState() {
     super.initState();
-
-    getUser();
-  }
-
-  getUser() async {
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-    print(snap.data());
-
-    setState(() {
-      username = (snap.data() as Map<String, dynamic>)['username'];
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    model.User user = Provider.of<UserProvider>(context).getUser;
+
     return Scaffold(
       body: Center(
-        child: Text(username == null ? username : "mobile"),
+        child: Text("Mobile home Screen"),
       ),
     );
   }
