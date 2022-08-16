@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_instagram/provider/user_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_instagram/utils/constants/colors.dart';
 
-import 'package:flutter_instagram/models/user_model.dart' as model;
+import '../constants/global_variable.dart';
 
 class MobileScreen extends StatefulWidget {
   const MobileScreen({Key? key}) : super(key: key);
@@ -13,19 +11,29 @@ class MobileScreen extends StatefulWidget {
 }
 
 class _MobileScreenState extends State<MobileScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    model.User user = Provider.of<UserProvider>(context).getUser;
-
     return Scaffold(
-      body: Center(
-        child: Text("Mobile home Screen"),
-      ),
+      body: screens[selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+          currentIndex: selectedIndex,
+          backgroundColor: mobileBackgroundColor,
+          selectedIconTheme: IconThemeData(color: blueColor),
+          unselectedIconTheme: IconThemeData(color: secondaryColor),
+          items: const [
+            BottomNavigationBarItem(label: '', icon: Icon(Icons.home)),
+            BottomNavigationBarItem(label: '', icon: Icon(Icons.search)),
+            BottomNavigationBarItem(label: '', icon: Icon(Icons.add_circle)),
+            BottomNavigationBarItem(label: '', icon: Icon(Icons.favorite)),
+            BottomNavigationBarItem(label: '', icon: Icon(Icons.person)),
+          ]),
     );
   }
 }
