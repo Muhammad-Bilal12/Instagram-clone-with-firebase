@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_instagram/Screens/home_screen/home_screen.dart';
 
 import '../../Screens/add_post_screen.dart/add_post.dart';
 
 const List<Widget> screens = <Widget>[
-  Center(
-    child: Text("Home"),
-  ),
+  HomeScreen(),
   Center(
     child: Text("search"),
   ),
